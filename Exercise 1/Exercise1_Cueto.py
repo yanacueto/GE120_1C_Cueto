@@ -6,15 +6,16 @@ Gianna May S. Cueto
 """
 
 # DECIMAL DEGREES TO DEGREE-MINUTE-SECONDS
-dms = 118.42069
+dd = 118.42069
+print("This is the given:", dd)
 # Obtain the degrees part of the given.
-degree = int(dms)
+degree = int(dd)
 print("This is the obtained degrees part of the given in integer format:", degree)
 # Obtain the minutes part of the given but take note that it is still in degree format.
-minutes = dms - degree
+minutes = dd - degree
 print("This is the obtained minutes part of the given in degree format:", minutes)
 # Obtain the minutes part of the given in minute format.
-minutes = (dms - degree) * 60
+minutes = (dd - degree) * 60
 print("This is the obtained minutes part of the given:", minutes)
 # This is done to obtain the integer part of the obtained minutes.
 minutes_whole = int(minutes)
