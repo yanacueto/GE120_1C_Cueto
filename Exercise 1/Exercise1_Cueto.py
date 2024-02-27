@@ -44,7 +44,7 @@ seconds = float(values[2]) # Use the float function so that decimals remain in t
 Solve for the decimal degrees by using the conversion factors:
 1 degree = 60 minutes
 1 minute = 60 seconds
-1 degree = 3600 seconds
+1 degree = 3600 seconds 
 """
 dd = degrees + (minutes / 60) + (seconds / 3600)
 # In printing the result, use the round function to only display six (6) decimal places to check if it matches with the given in the first script.
