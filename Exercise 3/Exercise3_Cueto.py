@@ -184,7 +184,3 @@ for line in lines:
 use pythagorean for distance
 use degrees(atan(dep/lat)) or atan(dep/lat)*(180/math.pi)
 """
-
-'''
-Fix the azimuth part para mag-accept pa rin siya ng azimuth in DMS!!!
-'''
