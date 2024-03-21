@@ -6,7 +6,7 @@ Gianna May S. Cueto
 """
 
 # CREATING FUNCTIONS TO BREAK DOWN THE PREVIOUS CODE
-from math import cos, sin, radians, sqrt
+from math import cos, sin, radians, sqrt, atan, degrees
 
 def getLatitude(distance, azimuth):
     '''
@@ -97,8 +97,64 @@ def azimuthToBearing(azimuth):
     else:
         bearing = "Invalid input."
     return bearing
+"""
+def getCorrLat(sumLat, sumDist):
+    '''
+    Compute for the correct latitude of a given line.
 
-# CREATE A SENTINEL CONTROLLED LOOP
+    Input: 
+    sumLat - float
+    sumDist - float
+
+    Output:
+    corrlat - float
+    '''
+    corrlat = (sumLat/sumDist)*line[1]
+    return corrlat
+
+def getCorrDep(sumDep, sumDist):
+    '''
+    Compute for the correct departure of a given line.
+
+    Input: 
+    sumDep - float
+    sumDist - float
+
+    Output:
+    corrdep - float
+    '''
+    corrdep = (sumDep/sumDist)*line[1]
+    return corrdep
+
+def getAdjDis(adjlat, adjdep):
+    '''
+    Obtain the adjusted distance of a given line.
+
+    Input: 
+    adjlat - float
+    adjdep - float
+
+    Output:
+    adjdis - float
+    '''
+    adjdis = sqrt(adjlat**2 + adjdep**2)
+    return adjdis
+
+def getAdjBear(adjlat, adjdep):
+    '''
+    Obtain the adjusted bearing of a given line.
+
+    Input: 
+    adjlat - float
+    adjdep - float
+
+    Output:
+    adjbear - float
+    '''
+    adjbear = degrees(atan(adjdep/adjlat))
+    return adjbear
+"""
+# CREATING A TABLE FOR THE RAW DISTANCES, BEARINGS, LATITUDES, AND DEPARTURES
 first = 1
 last = 2
 lines = []
@@ -108,7 +164,7 @@ sumDist = 0
 
 # Setting up the distance and azimuth in the program
 while True:
-    print()
+    print("\n") 
     print("LINE NO.", first, "-", last)
 
     wrong_format = False
@@ -148,9 +204,10 @@ while True:
 
 # Printing the program
 print("\n") 
-print('{: ^10} {: ^20} {: ^20} {: ^20} {: ^30}'.format("LINE NO.", "DISTANCE", "BEARING", "LATITUDE", "DEPATURE"))
+print("\033[39mTABLE OF RAW DISTANCES AND BEARINGS")
+print('{: ^10} {: ^20} {: ^20} {: ^20} {: ^20}'.format("LINE NO.", "DISTANCE", "BEARING", "LATITUDE", "DEPARTURE"))
 for line in lines:
-    print('{: ^10} {: ^20} {: ^20} {: ^20} {: ^30}'.format(line[0], line[1], line[2], line[3], line[4]))
+    print('{: ^10} {: ^20} {: ^20} {: ^20} {: ^20}'.format(line[0], line[1], line[2], round(line[3], 8), round(line[4], 8)))
 
 print("SUMMATION OF LATITUDE: ", sumLat)
 print("SUMMATION OF DEPARTURE: ", sumDep)
@@ -160,27 +217,47 @@ lec = sqrt(sumLat**2 + sumDep**2)
 print("LEC: ", lec)
 
 rec = sumDist/lec
-print("1: ", rec)
+print("REC: 1:", rec)
 
 print("************** END **************")
-
-# compass rule
 """
-corrlat = (sum of lat/D)*line[1]
+CREATING A TABLE FOR THE ADJUSTED DISTANCES AND BEARINGS
+first = 1
+last = 2
+adjusted = []
+corrlat = 0
+corrdep = 0
+constCorrLat = 0
+constCorrDep = 0
+adjlat = 0
+adjdep = 0
 
-constCorrLat = -sumLat/sumDis
-constCorrDep = -sumDep/sumDis
-
-for line in lines:
-    corrlat = constCorrLat*line[1]
-    corrdep = constCorrDep*line[1]
-
-    adjlat = line[3] + corr_lat
-    adjdep = line[4] + corr_dep
-
-    lines.append
+while True:
+    print("\n") 
     print()
 
-use pythagorean for distance
-use degrees(atan(dep/lat)) or atan(dep/lat)*(180/math.pi)
+    # Using the Compass Rule for corrections
+    for line in lines: 
+        constcorrlat = getCorrLat(sumLat, sumDist)
+        constcorrdep = getCorrDep(sumDep, sumDist)
+
+        adjlat = line[3] + corrlat
+        adjdep = line[4] + corrdep
+
+        adjdis = sqrt(adjlat**2 + adjdep**2)
+        adjbear = degrees(atan(adjdep/adjlat))
+
+        # adjustedDis = getAdjDis(adjlat, adjdep)
+        # adjustedBear = getAdjBear(adjlat, adjdep)
+
+    # Create a tuple of the line
+    adjust = (str(first) + "-" + str(last), adjdis, adjbear)
+    adjusted.append(adjust)
+
+    print("\n")
+    print("ADJUSTED DISTANCES AND BEARINGS")
+    print('{: ^20} {: ^20} {: ^30}'.format("LINE NO.", "ADJUSTED DISTANCE", "ADJUSTED BEARING"))
+    
+    for adjust in adjusted:
+        print('{: ^20} {: ^20} {: ^30}'.format(line[0], line[1], line[2]))
 """
